@@ -4,18 +4,34 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import LiveTvIcon from '@mui/icons-material/LiveTv'
-import { Autocomplete, TextField } from '@mui/material'
+import { AutoComplete } from 'antd'
+import { useAxios } from '../hooks/useAxios'
+import { API_KEY } from '../hooks/useEnv'
 
 export default function Navbar() {
-  const options = [
-    { label: 'The Godfather', id: 1 },
-    { label: 'Pulp Fiction', id: 2 },
-  ]
+  const axiosInstance = useAxios();
+  const navigate = useNavigate()
+  const [options, setOptions] = React.useState([])
+
+  function handleSearchMovie(value){
+    axiosInstance.get(`/search/movie?query=${value}&include_adult=false&api_key=${API_KEY}`)
+      .then(res => {
+        setOptions(res.data.results.map(item => ({value: item.original_title, id: item.id})))
+      })
+      .catch(err => {
+        console.error("Error fetching movie data: ", err);
+      });
+  }
+
+  function handleChooseMovie(value, option) {
+    navigate(`/${option.id}`)
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar className='py-5 px-5' position="static" color='info'>
+      <AppBar className="py-5 px-5" position="static" color="info">
         <Toolbar>
           <IconButton
             size="large"
@@ -56,17 +72,22 @@ export default function Navbar() {
             </NavLink>
             <NavLink
               className={`p-3 rounded-2xl duration-300 text-[16px]`}
-              to={'/up-comming'}
+              to={'/up-coming'}
             >
               {' '}
-              Up Comming{' '}
+              Up Coming{' '}
             </NavLink>
           </Typography>
-          <Autocomplete
-            disablePortal
+          <AutoComplete
+            allowClear
+            onSelect={handleChooseMovie}
+            onSearch={handleSearchMovie} // onChange o'rniga onSearch ishlatiladi
+            size="large"
+            style={{
+              width: 360,
+            }}
             options={options}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Movie" />}
+            placeholder="Search Movie"
           />
         </Toolbar>
       </AppBar>

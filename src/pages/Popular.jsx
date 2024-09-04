@@ -9,7 +9,7 @@ function Popular() {
   const [moviedata, setMuvieData] = useState([])
   useEffect(() => {
     useAxios()
-      .get(`movie/popular?language=en-US&page=${page}?api_key=${API_KEY}`, {
+      .get(`/movie/popular?language=en-US&page=${page}?api_key=${API_KEY}`, {
         headers: {
           Authorization: `Bearer ${TOKEN} `,
         },

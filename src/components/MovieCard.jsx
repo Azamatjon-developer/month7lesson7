@@ -10,7 +10,7 @@ import { IMG_URL } from '../hooks/useEnv';
 
 export default function Moviecard({item}) {
   return (
-    <Card className='rounded-2xl !shadow-orange-800 relative' sx={{ maxWidth: 300 }}>
+    <Card className='rounded-2xl !shadow-2xl !shadow-blue-600  relative' sx={{ maxWidth: 300 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -20,10 +20,10 @@ export default function Moviecard({item}) {
         />
         
         <CardContent>
-          <Typography className='line-clamp-3' gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div">
             {item.original_title}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          <Typography className='line-clamp-3' variant="body2" sx={{ color: 'text.secondary' }}>
             {item.overview}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
