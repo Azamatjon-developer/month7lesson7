@@ -7,6 +7,7 @@ function NowPlaying() {
   const [page, setPage] = useState(1)
   const [totelPage, setTotalPage] = useState(0)
   const [moviedata, setMuvieData] = useState([])
+  
   useEffect(() => {
     useAxios()
       .get(`/movie/now_playing?language=en-US&page=${page}?api_key=${API_KEY}`, {

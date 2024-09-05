@@ -26,6 +26,7 @@ export default function Navbar() {
   }
 
   function handleChooseMovie(value, option) {
+
     navigate(`/${option.id}`)
   }
 
@@ -72,7 +73,7 @@ export default function Navbar() {
             </NavLink>
             <NavLink
               className={`p-3 rounded-2xl duration-300 text-[16px]`}
-              to={'/up-coming'}
+              to={'/up-comming'}
             >
               {' '}
               Up Coming{' '}

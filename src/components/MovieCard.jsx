@@ -7,11 +7,13 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { IMG_URL } from '../hooks/useEnv';
+import { useNavigate } from 'react-router-dom';
 
 export default function Moviecard({item}) {
+  const navigate = useNavigate()
   return (
-    <Card className='rounded-2xl !shadow-2xl !shadow-blue-600  relative' sx={{ maxWidth: 300 }}>
-      <CardActionArea>
+    <Card  className='rounded-2xl !shadow-2xl !shadow-blue-600  relative' sx={{ maxWidth: 300 }}>
+      <CardActionArea onClick={() => navigate(`/${item.id}`)}>
         <CardMedia
           component="img"
           height="140"
